@@ -1,6 +1,6 @@
 # C Practice Projects
 
-This repository contains a collection of simple C programs I’ve written while learning the language.  
+This repository contains a collection of simple C programs I’ve written while learning the language using the BroCode tutorial: https://www.youtube.com/watch?v=87SH2Cn0s9A.  
 Each project focuses on practicing core programming concepts such as variables, loops, conditionals, functions, arrays/2D arrays, and input/output.  
 
 ## Projects
