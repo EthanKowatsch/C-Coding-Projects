@@ -9,13 +9,13 @@ int main() {
     double result;
 
     printf("Enter operation (+, -, x, /, ^):");
-    scanf("%c", &operator);
+    scanf(" %c", &operator);
 
     printf("Enter Number 1:");
-    scanf("%lf", &num1);
+    scanf(" %lf", &num1);
     
     printf("Enter Number 2:");
-    scanf("%lf", &num2);
+    scanf(" %lf", &num2);
 
     switch (operator)
     {
