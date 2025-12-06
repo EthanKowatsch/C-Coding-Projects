@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
 #include "functions.h"
 
 /**
@@ -28,6 +32,85 @@ FILE *open_file(const char *filename, const char *mode) {
 }
 
 /**
+ * Function Name: get_word_list_length
+ * Purpose: This function gets the total length of the word list.
+ * 
+ * Parameter(s):
+ *  fp: A pointer to the word textfile.
+ * 
+ * Return Value(s):
+ *  Returns the line count.
+ * 
+ * Side Effect(s):
+ *  None.
+ */
+
+int get_word_list_length(FILE *fp) {
+    char line[MAX_WORD_LENGTH];
+
+    int line_count = 0;
+
+    while(fgets(line, sizeof(line), fp) != NULL) {
+        line_count++;
+    }
+
+    return line_count;
+}
+
+/**
+ * Function Name: load_word_db
+ * Purpose: This function loads the word list into memory and an array.
+ * 
+ * Parameter(s):
+ *  fp: A pointer to the word textfile.
+ *  len: An integer storing the length of the array of words.
+ * 
+ * Return Value(s):
+ *  Returns the dynamically allocated word list.
+ * 
+ * Side Effect(s):
+ *  None.
+ */
+
+char **load_word_db(FILE *fp, int len) {
+    // Allocate memory for words list
+    char **arr_words = malloc(len * sizeof(char *));
+
+    if(arr_words == NULL) {
+        return NULL;
+    }
+
+    char line[MAX_WORD_LENGTH];
+
+    int i = 0;
+
+    while(fgets(line, sizeof(line), fp) != NULL){
+        // Dynamically allocate memory for each word
+        arr_words[i] = malloc(MAX_WORD_LENGTH * sizeof(char));
+        
+        if(arr_words[i] == NULL) {
+            // Free all previously allocated words
+            for(int j = 0; j < i; j++) {
+                free(arr_words[j]);
+            }
+            // Free the array itself
+            free(arr_words);
+            
+            return NULL;
+        }
+
+        // Copy word to array spot
+        line[strcspn(line, "\n")] = '\0';
+        strcpy(arr_words[i], line);
+
+        // Increment the index
+        i++;
+    }
+
+    return arr_words;
+}
+
+/**
  * Function Name: print_menu
  * Purpose: This function prints the menu for the game.
  * 
@@ -47,19 +130,23 @@ void print_menu(void) {
 }
 
 /**
- * Function Name: print_menu
- * Purpose: This function prints the menu for the game.
+ * Function Name: generate_word
+ * Purpose: This function generates the word to be guessed by the user.
  * 
  * Parameter(s):
- *  None.
+ *  fp: A pointer the the word textfile.
+ *  len: An integer representing the length of the list.
  * 
  * Return Value(s):
- *  None.
+ *  Returns a newly generated word from the list.
  * 
  * Side Effect(s):
- *  Prints the menu to the console for the user.
+ *  None.
  */
 
-char *generate_word() {
-    return NULL;
+char *generate_word(char **word_list, int len) {
+    // Generate random index for a word
+    int random_word_index = rand() % len;
+
+    return word_list[random_word_index];
 }

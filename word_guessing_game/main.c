@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 
 #include "functions.h"
 
@@ -14,12 +15,31 @@ int main(void) {
         return 1;
     }
 
-    bool is_playing = true;
+    // Get length of word list and rewind file
+    int length_word_list = get_word_list_length(fp);
+    rewind(fp);
 
+    // Allocate word list
+    char **word_list = load_word_db(fp, length_word_list);
+
+    if(word_list == NULL) {
+        printf("Error loading database of words.\n");
+        return 1;
+    }
+
+    // Ensure randomization when generating word
+    srand(time(NULL));
+
+    // Loop game until user chooses to exit
+    bool is_playing = true;
     while(is_playing) {
         // Print menu for user
         print_menu();
 
+        // Generate new word
+        char word[MAX_WORD_LENGTH] = "HELLO";
+
+        // Loop getting user response
 
         // Determine next action from user after game is over
         char user_response_buff[10];
@@ -35,7 +55,14 @@ int main(void) {
         }
     }
 
-    printf("\nThank you for playing!\n");
+    // Free each word
+    for(int i = 0; i < length_word_list; i++) {
+        free(word_list[i]);
+    }
+    // Free the array itself
+    free(word_list);
+
+    printf("\nThank you for playing!\nAll memory freed.\n");
 
     fclose(fp);
 
