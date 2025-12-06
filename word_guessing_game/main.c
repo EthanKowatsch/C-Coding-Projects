@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
 
 #include "functions.h"
 
@@ -11,9 +14,28 @@ int main(void) {
         return 1;
     }
 
-    //char word[MAX_WORD_LENGTH];
+    bool is_playing = true;
 
-    print_menu();
+    while(is_playing) {
+        // Print menu for user
+        print_menu();
+
+
+        // Determine next action from user after game is over
+        char user_response_buff[10];
+        char user_response;
+        printf("Play again? (y / n): ");
+        fgets(user_response_buff, sizeof(user_response_buff), stdin);
+        sscanf(user_response_buff, "%c", &user_response);
+
+        user_response = tolower(user_response);
+
+        if(user_response == 'n') {
+            is_playing = false;
+        }
+    }
+
+    printf("\nThank you for playing!\n");
 
     fclose(fp);
 

@@ -42,7 +42,7 @@ FILE *open_file(const char *filename, const char *mode) {
  */
 
 void print_menu(void) {
-    printf("--- Word Guessing Game ---\n");
+    printf("\n--- Word Guessing Game ---\n");
     printf("Rules:\n\t1. Enter 5 Letter word\n\t2. You get 5 guesses, after your 5th guess if you don't get it, you lose\n\t3. Have fun!\n\n");
 }
 
