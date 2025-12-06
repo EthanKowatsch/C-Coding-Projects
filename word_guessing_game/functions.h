@@ -8,6 +8,7 @@
 
 FILE *open_file(const char *filename, const char *mode);
 void print_menu();
+int get_word_list_length(FILE *fp);
 char *generate_word();
 
 #endif

@@ -11,7 +11,7 @@ int main(void) {
         return 1;
     }
 
-    char word[MAX_WORD_LENGTH];
+    //char word[MAX_WORD_LENGTH];
 
     print_menu();
 
