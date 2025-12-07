@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
 
@@ -37,7 +38,8 @@ int main(void) {
         print_menu();
 
         // Generate new word
-        char word[MAX_WORD_LENGTH] = "HELLO";
+        char word[MAX_WORD_LENGTH];
+        strcpy(word, generate_word(word_list, length_word_list));
 
         // Loop getting user response
 

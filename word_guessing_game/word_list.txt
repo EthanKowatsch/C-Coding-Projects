@@ -79,7 +79,6 @@ build
 built
 buyer
 cable
-calif
 carry
 catch
 cause
@@ -151,7 +150,6 @@ eager
 early
 earth
 eight
-either
 elite
 empty
 enemy
@@ -316,7 +314,7 @@ phase
 phone
 photo
 piano
-picked
+picks
 piece
 pilot
 pitch
@@ -398,7 +396,6 @@ smith
 smoke
 solid
 solve
-sorry
 sound
 south
 space
@@ -406,7 +403,6 @@ spare
 speak
 speed
 spend
-spent
 split
 spoke
 sport
@@ -443,19 +439,14 @@ teach
 terms
 terry
 texas
-thank
 theft
-their
 theme
-there
-these
 thick
 thing
 think
 third
 those
 three
-threw
 throw
 tight
 times
@@ -513,9 +504,7 @@ women
 world
 worry
 worse
-worst
 worth
-would
 wound
 write
 wrong

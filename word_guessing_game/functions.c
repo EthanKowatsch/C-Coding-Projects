@@ -95,7 +95,7 @@ char **load_word_db(FILE *fp, int len) {
             }
             // Free the array itself
             free(arr_words);
-            
+
             return NULL;
         }
 
@@ -147,6 +147,7 @@ void print_menu(void) {
 char *generate_word(char **word_list, int len) {
     // Generate random index for a word
     int random_word_index = rand() % len;
-
+    // TODO: REMOVE
+    printf("DEBUG: Index=%d, Len=%d, Word='%s'\n", random_word_index, len, word_list[random_word_index]);
     return word_list[random_word_index];
 }

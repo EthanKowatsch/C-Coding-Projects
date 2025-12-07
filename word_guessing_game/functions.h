@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#define MAX_WORD_LENGTH 6
+#define MAX_WORD_LENGTH 10
 #define FILENAME "word_list.txt"
 
 FILE *open_file(const char *filename, const char *mode);
