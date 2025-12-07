@@ -42,6 +42,10 @@ int main(void) {
         strcpy(word, generate_word(word_list, length_word_list));
 
         // Loop getting user response
+        bool is_guessing = true;
+        do {
+            
+        } while(is_guessing);
 
         // Determine next action from user after game is over
         char user_response_buff[10];
