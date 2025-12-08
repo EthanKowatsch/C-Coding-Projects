@@ -43,9 +43,9 @@ int main(void) {
         strcpy(word, generate_word(word_list, length_word_list));
 
         // Arrays to track the letters
-        char correct_place_letters[5]; // Can only have 5 correct letters
-        char wrong_place_letters[5]; // Can only have 5 wrong place letters
-        char incorrect_letters[21]; // 26 letters in alphabet, 5 of them must be in the word so we don't need space for all 26 letters
+        char correct_place_letters[6] = ""; // Can only have 5 correct letters
+        char wrong_place_letters[6] = ""; // Can only have 5 wrong place letters
+        char incorrect_letters[22] = ""; // 26 letters in alphabet, 5 of them must be in the word so we don't need space for all 26 letters
 
         // Loop getting user response
         int guess_count = 0;
@@ -53,7 +53,7 @@ int main(void) {
             // Prompt user for their guess
             char guess[MAX_WORD_LENGTH];
 
-            printf("Enter word guess %d: ", guess_count + 1);
+            printf("\nEnter word guess %d: ", guess_count + 1);
             fgets(guess, sizeof(guess), stdin);
             guess[strcspn(guess, "\n")] = '\0';
 
@@ -67,7 +67,7 @@ int main(void) {
             word_length = strlen(guess);
 
             // Use the check word function to determine the result of the guessed word
-            check_word(guess, word, word_length, &correct_place_letters, &wrong_place_letters, &incorrect_letters);
+            check_word(guess, word, word_length, correct_place_letters, wrong_place_letters, incorrect_letters);
 
             // Output whats right and wrong to user
             printf("\nGuess: %s", guess);
@@ -117,8 +117,8 @@ int main(void) {
         fgets(user_response_buff, sizeof(user_response_buff), stdin);
         sscanf(user_response_buff, "%c", &user_response);
 
+        // Check user's response
         user_response = tolower(user_response);
-
         if(user_response == 'n') {
             is_playing = false;
         }

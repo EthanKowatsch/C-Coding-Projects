@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 
 #include "functions.h"
 
@@ -168,14 +169,15 @@ char *generate_word(char **word_list, int len) {
  */
 
 void check_word(char *guessed_word, char *word, int word_length, char *correct_place_letters, char *wrong_place_letters, char *incorrect_letters) {
-    // Loop through the word checking each letter to the letter in the right word
+    // Loop through the word checking each letter to the letter in the right word seeing if any of the guess letters are right
     for(int i = 0; i < word_length; i++) {
-        for(int j = 0; j < word_length; i++) {
-            if(guessed_word[j] == word[i]) {
-                if(i == j) {
-                    
-                }
-            }
+        if(tolower(guessed_word[i]) == tolower(word[i])) {
+            correct_place_letters[i] = tolower(guessed_word[i]);
+        }
+        else {
+            correct_place_letters[i] = '_';
         }
     }
+
+    // TODO: Add wrong position and incorrect letter logic
 }
