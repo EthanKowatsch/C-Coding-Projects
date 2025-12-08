@@ -151,3 +151,31 @@ char *generate_word(char **word_list, int len) {
     printf("DEBUG: Index=%d, Len=%d, Word='%s'\n", random_word_index, len, word_list[random_word_index]);
     return word_list[random_word_index];
 }
+
+/**
+ * Function Name: 
+ * Purpose: This function checks the word guessed by the user.
+ * 
+ * Parameter(s):
+ *  fp: A pointer the the word textfile.
+ *  len: An integer representing the length of the list.
+ * 
+ * Return Value(s):
+ *  Returns a newly generated word from the list.
+ * 
+ * Side Effect(s):
+ *  None.
+ */
+
+void check_word(char *guessed_word, char *word, int word_length, char *correct_place_letters, char *wrong_place_letters, char *incorrect_letters) {
+    // Loop through the word checking each letter to the letter in the right word
+    for(int i = 0; i < word_length; i++) {
+        for(int j = 0; j < word_length; i++) {
+            if(guessed_word[j] == word[i]) {
+                if(i == j) {
+                    
+                }
+            }
+        }
+    }
+}
