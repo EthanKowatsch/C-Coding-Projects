@@ -43,8 +43,21 @@ int main(void) {
 
         // Loop getting user response
         bool is_guessing = true;
+        int guess_count = 0;
         do {
-            
+            // Prompt user for their guess
+            char guess[MAX_WORD_LENGTH];
+
+            printf("Enter word guess %d: ", guess_count + 1);
+            fgets(guess, sizeof(guess), stdin);
+            guess[strcspn(guess, "\n")] = '\0';
+
+            // Check if word guessed is 5 letters long
+            if(strlen(guess) != 5) {
+                printf("\nIncorrect Guess: Word must be 5 letters\n");
+                continue;
+            }
+
         } while(is_guessing);
 
         // Determine next action from user after game is over
@@ -61,11 +74,11 @@ int main(void) {
         }
     }
 
-    // Free each word
+    // Free each word and the array
     for(int i = 0; i < length_word_list; i++) {
         free(word_list[i]);
     }
-    // Free the array itself
+
     free(word_list);
 
     printf("\nThank you for playing!\nAll memory freed.\n");
