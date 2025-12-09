@@ -33,27 +33,36 @@ int main(void) {
 
     // Loop game until user chooses to exit
     bool is_playing = true;
-    bool has_won = false;
     while(is_playing) {
         // Print menu for user
         print_menu();
+
+        // Reset has won variable
+        bool has_won = false;
 
         // Generate new word
         char word[MAX_WORD_LENGTH];
         strcpy(word, generate_word(word_list, length_word_list));
 
         // Arrays to track the letters
-        char correct_place_letters[6] = ""; // Can only have 5 correct letters
-        char wrong_place_letters[6] = ""; // Can only have 5 wrong place letters
-        char incorrect_letters[22] = ""; // 26 letters in alphabet, 5 of them must be in the word so we don't need space for all 26 letters
+        char accumulated_correct[6] = "_____";
+        accumulated_correct[5] = '\0';
 
         // Loop getting user response
         int guess_count = 0;
         do {
             // Prompt user for their guess
             char guess[MAX_WORD_LENGTH];
+            
+            char correct_place_letters[6] = ""; // Can only have 5 correct letters
+            char wrong_place_letters[6] = ""; // Can only have 5 wrong place letters
+            char incorrect_letters[22] = ""; // 26 letters in alphabet, 5 of them must be in the word so we don't need space for all 26 letters
 
-            printf("\nEnter word guess %d: ", guess_count + 1);
+            correct_place_letters[0] = '\0';
+            wrong_place_letters[0] = '\0';
+            incorrect_letters[0] = '\0';
+
+            printf("\n\nEnter word guess %d: ", guess_count + 1);
             fgets(guess, sizeof(guess), stdin);
             guess[strcspn(guess, "\n")] = '\0';
 
@@ -69,6 +78,13 @@ int main(void) {
             // Use the check word function to determine the result of the guessed word
             check_word(guess, word, word_length, correct_place_letters, wrong_place_letters, incorrect_letters);
 
+            // Loop to only output correct letters
+            for(int i = 0; i < 5; i++) {
+                if(correct_place_letters[i] != '_') {
+                    accumulated_correct[i] = correct_place_letters[i];
+                }
+            }
+
             // Output whats right and wrong to user
             printf("\nGuess: %s", guess);
 
@@ -76,7 +92,7 @@ int main(void) {
             int length_right_letters = strlen(correct_place_letters);
             printf("\nCorrect Letters: ");
             for(int i = 0; i < length_right_letters; i++) {
-                printf("%c ", correct_place_letters[i]);
+                printf("%c ", accumulated_correct[i]);
             }
 
             // Output of wrongly placed letters
@@ -96,7 +112,7 @@ int main(void) {
             guess_count++;
 
             // Check if all 5 letters are in the correct place array meaning the user got all 5 letters correct
-            if(strlen(correct_place_letters) == 5) {
+            if(strcmp(accumulated_correct, word) == 0) {
                 has_won = true;
                 break;
             }
@@ -104,10 +120,10 @@ int main(void) {
 
         // Check if the user won
         if(has_won == true) {
-            printf("\nUser won - Total Guesses: %d Word was: %s\n", guess_count, word);
+            printf("\n\nUser won - Total Guesses: %d Word was: %s\n", guess_count, word);
         }
         else {
-            printf("\nUser lost - Word was: %s\n", word);
+            printf("\n\nUser lost - Word was: %s\n", word);
         }
 
         // Determine next action from user after game is over

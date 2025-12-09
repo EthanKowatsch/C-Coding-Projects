@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <time.h>
 #include <ctype.h>
 
@@ -154,30 +155,66 @@ char *generate_word(char **word_list, int len) {
 }
 
 /**
- * Function Name: 
- * Purpose: This function checks the word guessed by the user.
+ * Function Name: check_word
+ * Purpose: This function checks the word guessed by the user to compare their guess to the correct word.
  * 
  * Parameter(s):
- *  fp: A pointer the the word textfile.
- *  len: An integer representing the length of the list.
+ *  guessed_word: A string representing the user's guessed word.
+ *  word: A string representing the correct word.
+ *  word_length: A integer representing the length of the guessed word.
+ *  correct_place_letters: A pointer to an array of characters for correct letters found in the user's guess.
+ *  wrong_place_letters: A pointer to an array of characters for correct letters, but aren't in the correct spot.
+ *  incorrect_letters: A pointer to an array of characters for incorrect letters found in the user's guess.
  * 
  * Return Value(s):
- *  Returns a newly generated word from the list.
+ *  None.
  * 
  * Side Effect(s):
- *  None.
+ *  Modifies the array pointers passed into the function.
  */
 
 void check_word(char *guessed_word, char *word, int word_length, char *correct_place_letters, char *wrong_place_letters, char *incorrect_letters) {
-    // Loop through the word checking each letter to the letter in the right word seeing if any of the guess letters are right
+    int wrong_index = 0;
+    int incorrect_index = 0;
+    bool used[5] = {false};  // Track which letters in 'word' have been matched
+    
+    // First pass: Find all correct position letters
     for(int i = 0; i < word_length; i++) {
         if(tolower(guessed_word[i]) == tolower(word[i])) {
             correct_place_letters[i] = tolower(guessed_word[i]);
-        }
-        else {
+            used[i] = true;  // Mark this position as used
+        } else {
             correct_place_letters[i] = '_';
         }
     }
-
-    // TODO: Add wrong position and incorrect letter logic
+    
+    // Second pass: Find wrong position and incorrect letters
+    for(int i = 0; i < word_length; i++) {
+        // Skip letters already marked as correct
+        if(correct_place_letters[i] != '_') {
+            continue;
+        }
+        
+        // Check if this letter exists elsewhere in the word
+        bool found = false;
+        for(int j = 0; j < word_length; j++) {
+            // Check if letter matches and that position hasn't been used yet
+            if(!used[j] && tolower(guessed_word[i]) == tolower(word[j])) {
+                found = true;
+                used[j] = true;  // Mark this position as used
+                break;
+            }
+        }
+        
+        if(found) {
+            wrong_place_letters[wrong_index++] = tolower(guessed_word[i]);
+        } else {
+            incorrect_letters[incorrect_index++] = tolower(guessed_word[i]);
+        }
+    }
+    
+    // Null terminate all arrays
+    correct_place_letters[word_length] = '\0';
+    wrong_place_letters[wrong_index] = '\0';
+    incorrect_letters[incorrect_index] = '\0';
 }
