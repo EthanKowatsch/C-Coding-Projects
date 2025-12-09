@@ -128,7 +128,7 @@ char **load_word_db(FILE *fp, int len) {
 
 void print_menu(void) {
     printf("\n--- Word Guessing Game ---\n");
-    printf("Rules:\n\t1. Enter 5 Letter word\n\t2. You get 5 guesses, after your 5th guess if you don't get it, you lose\n\t3. Have fun!\n\n");
+    printf("Rules:\n\t1. Enter 5 Letter word\n\t2. You get 5 guesses, after your 5th guess if you don't get it, you lose\n\t3. Have fun!\n");
 }
 
 /**
