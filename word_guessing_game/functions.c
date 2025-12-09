@@ -149,8 +149,10 @@ void print_menu(void) {
 char *generate_word(char **word_list, int len) {
     // Generate random index for a word
     int random_word_index = rand() % len;
-    // TODO: REMOVE
-    printf("DEBUG: Index=%d, Len=%d, Word='%s'\n", random_word_index, len, word_list[random_word_index]);
+
+    // DEBUG STATEMENT: IF NEEDED
+    // printf("DEBUG: Index=%d, Len=%d, Word='%s'\n", random_word_index, len, word_list[random_word_index]);
+
     return word_list[random_word_index];
 }
 
@@ -176,13 +178,14 @@ char *generate_word(char **word_list, int len) {
 void check_word(char *guessed_word, char *word, int word_length, char *correct_place_letters, char *wrong_place_letters, char *incorrect_letters) {
     int wrong_index = 0;
     int incorrect_index = 0;
-    bool used[5] = {false};  // Track which letters in 'word' have been matched
+    
+    bool used[5] = {false};
     
     // First pass: Find all correct position letters
     for(int i = 0; i < word_length; i++) {
         if(tolower(guessed_word[i]) == tolower(word[i])) {
             correct_place_letters[i] = tolower(guessed_word[i]);
-            used[i] = true;  // Mark this position as used
+            used[i] = true;
         } else {
             correct_place_letters[i] = '_';
         }
@@ -201,7 +204,7 @@ void check_word(char *guessed_word, char *word, int word_length, char *correct_p
             // Check if letter matches and that position hasn't been used yet
             if(!used[j] && tolower(guessed_word[i]) == tolower(word[j])) {
                 found = true;
-                used[j] = true;  // Mark this position as used
+                used[j] = true;
                 break;
             }
         }

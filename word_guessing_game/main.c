@@ -40,6 +40,8 @@ int main(void) {
         // Reset has won variable
         bool has_won = false;
 
+        int total_index = 0;
+
         // Generate new word
         char word[MAX_WORD_LENGTH];
         strcpy(word, generate_word(word_list, length_word_list));
@@ -47,6 +49,9 @@ int main(void) {
         // Arrays to track the letters
         char accumulated_correct[6] = "_____";
         accumulated_correct[5] = '\0';
+
+        // Add array to track all letters guessed
+        char letters_guessed[26];
 
         // Loop getting user response
         int guess_count = 0;
@@ -77,6 +82,26 @@ int main(void) {
 
             // Use the check word function to determine the result of the guessed word
             check_word(guess, word, word_length, correct_place_letters, wrong_place_letters, incorrect_letters);
+
+            // Feature to track all the letters guessed each turn
+            for(int i = 0; i < word_length; i++) {
+                // Check if this letter is already in letters_guessed
+                bool already_guessed = false;
+                for(int j = 0; j < total_index; j++) {
+                    if(tolower(guess[i]) == letters_guessed[j]) {
+                        already_guessed = true;
+                        break;
+                    }
+                }
+                
+                // Only add if not already in the array
+                if(!already_guessed) {
+                    letters_guessed[total_index] = tolower(guess[i]);
+                    total_index++;
+                }
+            }
+
+            letters_guessed[total_index] = '\0';
 
             // Loop to only output correct letters
             for(int i = 0; i < 5; i++) {
@@ -109,6 +134,18 @@ int main(void) {
                 printf("%c ", incorrect_letters[i]);
             }
 
+            // Output of all letters guessed total
+            int length_all_letters = strlen(letters_guessed);
+            printf("\nAll letters Guessed: ");
+            for(int i = 0; i < length_all_letters; i++) {
+                if((i + 1) == length_all_letters) {
+                    printf("%c ", letters_guessed[i]);
+                }
+                else {
+                    printf("%c, ", letters_guessed[i]);
+                }
+            }
+        
             guess_count++;
 
             // Check if all 5 letters are in the correct place array meaning the user got all 5 letters correct
