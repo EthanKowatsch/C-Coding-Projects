@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 // Prototyping the functions
 void resetSeatingBoard(int r, int c, int seatingBoard[r][c]);
@@ -25,10 +26,10 @@ int main() {
         char userChoice;
 
         // Ask user for their choice
-        printf("\nWhat would you like to do? (Type: B - Book seat, S - Show seating available, E - Exit Program)");
+        printf("\nWhat would you like to do? (Type: B - Book seat, S - Show seating available, E - Exit Program): ");
         scanf(" %c", &userChoice);
 
-        switch (userChoice)
+        switch (toupper(userChoice))
         {
         case 'B': {
             printf("Which seat would you like to book?\n");
