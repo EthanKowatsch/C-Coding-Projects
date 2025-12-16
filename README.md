@@ -46,4 +46,4 @@ Example:
 gcc -Wall -std=c99 main.c -o executable_name_in_.gitignore
 ./program
 ```
-*Some files include `<math.h>` and must be compiled with `-lm`.*
+*Some files include `<math.h>` and must be compiled with `-lm` at the end of the `gcc` compile line.*
